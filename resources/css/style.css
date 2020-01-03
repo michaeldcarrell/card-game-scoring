@@ -45,3 +45,7 @@ tr td:first-child {
 .hidden {
     display: none;
 }
+
+.navbar-lst {
+    list-style: none;
+}
