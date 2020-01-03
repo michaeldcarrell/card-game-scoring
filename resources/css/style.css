@@ -1,0 +1,47 @@
+.col-id {
+    display: none;
+}
+
+tr td:first-child {
+    width: 1%;
+    white-space: nowrap;
+}
+
+.round-inpt, .round {
+    width: 80px;
+}
+
+.round-inpt {
+    height: 25px;
+}
+
+.nav-btns {
+    width: 150px;
+    float: right;
+}
+
+.score-card {
+    margin: 20px;
+}
+
+#inpt-player-name, .nav-btns {
+    margin-right: 10px;
+}
+
+#inpt-player-name {
+    width: 200px;
+    float: right;
+}
+
+#score-table {
+    overflow: auto;
+}
+
+.navbar {
+    width: 100vw;
+    min-width: 100vw;
+}
+
+.hidden {
+    display: none;
+}

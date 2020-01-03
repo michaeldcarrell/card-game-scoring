@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="icon" href="resources/img/CE-Logo.png">
+    <meta charset="UTF-8">
+    <title>Score Keeper</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@beta/dist/js.cookie.min.js"></script>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
+    <div class="navbar-collapse" id="navbarSupportedContent">
+        <ul class="">
+            <li class="navbar-lst">
+                <button type="button" class="btn btn-success nav-btns" id="new-round">New Round</button>
+                <input type="text" id="inpt-player-name" class="form-unit form-control" placeholder="Name">
+                <button type="button" class="btn btn-secondary nav-btns" id="add-player">Add New Player</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="fluid-container score-card hidden" id="score-card">
+    <table class="table table-dark" id="score-table">
+        <tr class="header" id="header">
+            <th>Name</th>
+            <th class="round" id="round-1-header">Round 1</th>
+            <th id="total-header">Total</th>
+        </tr>
+    </table>
+</div>
+</body>
+<script src="resources/js/score-card.js"></script>
+</html>
