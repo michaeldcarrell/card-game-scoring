@@ -32,6 +32,8 @@ let addRound = (columnPosition, playersNumber, row, numberOfPlayers) => {
 };
 
 let addPlayer = () => {
+    let currentPlayerCount = parseInt(document.getElementById('data').getAttribute('data-player-count'))
+    let currentPlayerNames = document.getElementById('data').getAttribute('data-players')
     let playerName = document.getElementById('inpt-player-name').value;
     if (playerName === '') return;
     if (document.getElementById('score-card').classList.contains('hidden')) {
@@ -54,7 +56,32 @@ let addPlayer = () => {
     total.innerHTML = "0";
     total.id = 'player-' + playersNumber + '-total';
     document.getElementById('inpt-player-name').value = '';
+    document.getElementById('data')
+        .setAttribute('data-player-count', (currentPlayerCount + 1).toString())
+    if (currentPlayerCount > 0) {
+        currentPlayerNames += ' ' + playerName
+    } else {
+        currentPlayerNames = playerName
+    }
+    document.getElementById('data').setAttribute('data-players', currentPlayerNames)
 };
+
+let newGame = () => {
+    let table = document.getElementById('score-table')
+    for (let playerIndex = table.rows.length - 1; playerIndex >= 0; playerIndex--) {
+        let row = table.rows[playerIndex]
+        let totalColumnIndex = row.children.length - 1;
+        for (let columnIndex = totalColumnIndex; columnIndex > 1; columnIndex--) {
+            if (columnIndex < totalColumnIndex) {
+                row.deleteCell(columnIndex);
+            }
+        }
+        if (playerIndex > 0) {
+            document.getElementById('inpt-score-player-' + playerIndex +'-round-1').value = '';
+            document.getElementById('player-' + playerIndex + '-total').innerHTML = '0';
+        }
+    }
+}
 
 let playerRoundFromId = (currentId) => {
     return {
@@ -125,3 +152,30 @@ document.getElementById('new-round').addEventListener('click', (event) => {
 
     document.getElementById('navbar').style.width = (document.getElementById('score-table').offsetWidth + 20).toString() + 'px';
 });
+
+document.getElementById('new-game').addEventListener('click', (event) => newGame());
+
+// testing inits
+// let eventFire = function (el, etype){
+//     if (el.fireEvent) {
+//         el.fireEvent('on' + etype);
+//     } else {
+//         let evObj = document.createEvent('Events');
+//         evObj.initEvent(etype, true, false);
+//         el.dispatchEvent(evObj);
+//     }
+// }
+// let testPlayers = function() {
+//     let nameInput = document.getElementById('inpt-player-name');
+//     let addPlayer = document.getElementById('add-player');
+//     nameInput.value = 'Michael';
+//     eventFire(addPlayer, 'click');
+//     nameInput.value = 'Hanna';
+//     eventFire(addPlayer, 'click');
+// }();
+//
+// let initRounds = function(number) {
+//     for (let i = 0; i < number; i++) {
+//         eventFire(document.getElementById('new-round'), 'click')
+//     }
+// }(2)

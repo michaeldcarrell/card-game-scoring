@@ -13,6 +13,7 @@
     <div class="navbar-collapse" id="navbarSupportedContent">
         <ul class="">
             <li class="navbar-lst">
+                <button type="button" class="btn btn-danger nav-btns" id="new-game">New Game</button>
                 <button type="button" class="btn btn-success nav-btns" id="new-round">New Round</button>
                 <input type="text" id="inpt-player-name" class="form-unit form-control" placeholder="Name">
                 <button type="button" class="btn btn-secondary nav-btns" id="add-player">Add New Player</button>
@@ -21,6 +22,11 @@
     </div>
 </nav>
 <div class="fluid-container score-card hidden" id="score-card">
+    <div id="data"
+         data-rounds="1"
+         data-player-count="0"
+         data-players=""
+    ></div>
     <table class="table table-dark" id="score-table">
         <tr class="header" id="header">
             <th>Name</th>
