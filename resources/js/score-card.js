@@ -11,6 +11,13 @@ let totalPlayer = (playerID) => {
     document.getElementById('player-' + playerID + '-total').innerHTML = playerTotalScore.toString();
 };
 
+let addGameButtons = function (playerCount) {
+    if(playerCount === 0) {
+        document.getElementById('new-game').style.display = 'block';
+        document.getElementById('new-round').style.display = 'block';
+    }
+};
+
 let getAdvanceToNextScore = () => {
     let tabIndexElements = document.querySelectorAll('input, [tabindex]:not([tabindex="-1"])');
     let elementIds = {};
@@ -55,6 +62,7 @@ let addPlayer = () => {
     let total = row.insertCell(currentRounds + 1);
     total.innerHTML = "0";
     total.id = 'player-' + playersNumber + '-total';
+
     document.getElementById('inpt-player-name').value = '';
     document.getElementById('data')
         .setAttribute('data-player-count', (currentPlayerCount + 1).toString())
@@ -64,6 +72,8 @@ let addPlayer = () => {
         currentPlayerNames = playerName
     }
     document.getElementById('data').setAttribute('data-players', currentPlayerNames)
+
+    addGameButtons(currentPlayerCount);
 };
 
 let newGame = () => {

@@ -49,3 +49,11 @@ tr td:first-child {
 .navbar-lst {
     list-style: none;
 }
+
+#new-round {
+    display: none;
+}
+
+#new-game {
+    display: none;
+}

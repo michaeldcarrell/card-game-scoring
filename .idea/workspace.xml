@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="174de94e-cc4a-4b10-b99e-2e8be0b45989" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/micha.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/score-card.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/score-card.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,11 +13,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1VoDTXu4Ci2OnfytqEkDwB4CBpt" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -42,11 +41,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1586799756025</updated>
-      <workItem from="1586799757419" duration="2601000" />
+      <workItem from="1586799757419" duration="3429000" />
+      <workItem from="1586977120107" duration="638000" />
+      <workItem from="1587394449679" duration="1125000" />
+      <workItem from="1589054559650" duration="2786000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="-761" y="606" key="FileChooserDialogImpl" timestamp="1586977147513">
+      <screen x="-1080" y="-76" width="1080" height="1880" />
+    </state>
+    <state x="-761" y="606" key="FileChooserDialogImpl/-1080.-76.1080.1880/1920.0.1920.1040/0.0.1920.1040/309.-1080.1536.824@-1080.-76.1080.1880" timestamp="1586977147513" />
   </component>
 </project>
