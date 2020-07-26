@@ -1,19 +1,74 @@
-let totalPlayer = (playerID) => {
+// let socket = io.connect('http://localhost:8080');
+let socket = io("https://ce-scoring.herokuapp.com/");
+
+let roomCode = Cookies.get('ce-room-manage-code');
+document.getElementById('room-code').innerHTML = 'Room Code: ' + roomCode;
+
+let playerNames = [];
+let playerNameNumbers = {};
+
+let playerRoundScores = {};
+let maxRounds = 0;
+
+socket.on('score', function(data){
+    console.log(data);
+});
+
+socket.on('new-player', function(data) {
+    if (data.roomCode === roomCode) {
+        //create function which finds players with the same name
+        let playerNotExists = !playerNames.includes(data.playerName);
+        if (playerNotExists) {
+            addPlayerViaSocket(data.playerName);
+            playerNames.push(data.playerName);
+        }
+        console.log(playerNames);
+        console.log(playerNameNumbers);
+        socket.emit('player-joined', {
+            roomCode: roomCode,
+            playerName: data.playerName,
+            playerNumber: playerNameNumbers[data.playerName].playerNumber,
+            roundNumber: document.getElementById('header').children.length - 3,
+            scores: playerRoundScores,
+            result: playerNotExists
+        })
+        console.log(data.playerName, data.roomCode);
+    }
+})
+
+socket.on('player-submitted-score', function(data){
+    console.log(data);
+    document.getElementById('inpt-score-player-' + data.playerNumber + '-round-' + data.roundNumber).value = data.roundScore;
+    totalPlayer(data.playerNumber);
+    if (checkForNextRound(maxRound(), maxPlayer())) {
+        addNewRound();
+    }
+});
+
+let totalPlayer = function(playerID) {
+    console.log('Total Player', playerID)
     let rowCollection = document.getElementsByClassName('scores-player-' + playerID);
     let playerTotalScore = 0;
+    let roundScores = {};
     for (let i = 0; i < rowCollection.length; i++) {
         let currentValue = rowCollection[i].value;
         if (currentValue === "") {
             currentValue = "0";
         }
         playerTotalScore += parseInt(currentValue);
+        roundScores[i] = parseInt(currentValue);
     }
     document.getElementById('player-' + playerID + '-total').innerHTML = playerTotalScore.toString();
+    playerRoundScores[playerID] = {score: roundScores}
+    socket.emit('scoreboard-update', {
+        roomCode: roomCode,
+        scores: playerRoundScores
+    });
 };
 
 let addGameButtons = function (playerCount) {
     if(playerCount === 0) {
-        document.getElementById('new-game').style.display = 'block';
+        // document.getElementById('new-game').style.display = 'block';
         document.getElementById('new-round').style.display = 'block';
     }
 };
@@ -36,9 +91,16 @@ let addRound = (columnPosition, playersNumber, row, numberOfPlayers) => {
     document.getElementById("inpt-score-player-" + playersNumber + "-round-" + columnPosition).addEventListener('change', (event) => {
         totalPlayer(playersNumber);
     });
+    if (columnPosition > maxRounds) {
+        maxRounds = columnPosition;
+        socket.emit('new-round', {
+            roomCode: roomCode,
+            roundNumber: maxRounds
+        })
+    }
 };
 
-let addPlayer = () => {
+let addPlayer = function() {
     let currentPlayerCount = parseInt(document.getElementById('data').getAttribute('data-player-count'))
     let currentPlayerNames = document.getElementById('data').getAttribute('data-players')
     let playerName = document.getElementById('inpt-player-name').value;
@@ -56,12 +118,17 @@ let addPlayer = () => {
     row.id = 'row-' + playersNumber;
 
     name.innerHTML = playerName;
-    for (let round = 1; round <= currentRounds; round++) {
+    for (let round = 1; round < currentRounds; round++) {
         addRound(round, playersNumber, row, numberOfPlayers);
     }
-    let total = row.insertCell(currentRounds + 1);
+    let total = row.insertCell(currentRounds);
     total.innerHTML = "0";
     total.id = 'player-' + playersNumber + '-total';
+
+
+    let runningTotal = row.insertCell(currentRounds + 1);
+    runningTotal.innerHTML = "0";
+    runningTotal.id = 'player-' + playersNumber + 'running-total';
 
     document.getElementById('inpt-player-name').value = '';
     document.getElementById('data')
@@ -74,6 +141,7 @@ let addPlayer = () => {
     document.getElementById('data').setAttribute('data-players', currentPlayerNames)
 
     addGameButtons(currentPlayerCount);
+    playerNameNumbers[playerName] = {playerNumber: playersNumber}
 };
 
 let newGame = () => {
@@ -91,6 +159,19 @@ let newGame = () => {
             document.getElementById('player-' + playerIndex + '-total').innerHTML = '0';
         }
     }
+}
+
+let checkForNextRound = function(maxRound, maxPlayer) {
+    let allRoundsFilled = true;
+    for (let i = 1; i <= maxPlayer; i++) {
+        let playerRoundScore = document
+            .getElementById('inpt-score-player-' + i + '-round-' + maxRound.toString())
+            .value
+        if (playerRoundScore === '') {
+            allRoundsFilled = false;
+        }
+    }
+    return allRoundsFilled
 }
 
 let playerRoundFromId = (currentId) => {
@@ -119,20 +200,22 @@ document.addEventListener('keyup', function(event) {
                 nextInput.player = 1;
                 nextInput.round = parseInt(playerRound.round) + 1;
             } else if (parseInt(playerRound.player) === maxPlayer() && parseInt(playerRound.round) === maxRound()) {
-                let currentRounds = document.getElementById('header').children.length - 2;
-                let rows = document.getElementById('score-table').rows;
-                let header = document.createElement('th');
-                header.innerHTML = 'Round ' + (currentRounds + 1).toString();
-                header.classList.add('round');
-                header.id = 'round-' + (currentRounds + 1).toString() + '-header';
-                let headers = document.getElementById('header');
-                headers.insertBefore(header, document.getElementById('total-header'));
-                for (let player = 1; player < rows.length; player++) {
-                    let currentRow = rows[player];
-                    addRound(currentRounds + 1, rows[player].id.replace('row-', ''), rows[player], rows.length);
-                }
+                // let currentRounds = document.getElementById('header').children.length - 2;
+                // let rows = document.getElementById('score-table').rows;
+                // let header = document.createElement('th');
+                // header.innerHTML = 'Round ' + (currentRounds).toString();
+                // header.classList.add('round');
+                // header.id = 'round-' + (currentRounds).toString() + '-header';
+                // let headers = document.getElementById('header');
+                // headers.insertBefore(header, document.getElementById('total-header'));
+                // for (let player = 1; player < rows.length; player++) {
+                //     let currentRow = rows[player];
+                //     addRound(currentRounds, rows[player].id.replace('row-', ''), rows[player], rows.length);
+                // }
+                //
+                // document.getElementById('navbar').style.width = (document.getElementById('score-table').offsetWidth + 20).toString() + 'px';
+                addNewRound();
 
-                document.getElementById('navbar').style.width = (document.getElementById('score-table').offsetWidth + 20).toString() + 'px';
                 nextInput.player = 1;
                 nextInput.round = parseInt(playerRound.round) + 1;
             } else {
@@ -146,8 +229,8 @@ document.addEventListener('keyup', function(event) {
     }
 });
 
-document.getElementById('new-round').addEventListener('click', (event) => {
-    let currentRounds = document.getElementById('header').children.length - 2;
+let addNewRound = function() {
+    let currentRounds = document.getElementById('header').children.length - 3;
     let rows = document.getElementById('score-table').rows;
     let header = document.createElement('th');
     header.innerHTML = 'Round ' + (currentRounds + 1).toString();
@@ -161,31 +244,33 @@ document.getElementById('new-round').addEventListener('click', (event) => {
     }
 
     document.getElementById('navbar').style.width = (document.getElementById('score-table').offsetWidth + 20).toString() + 'px';
+}
+
+document.getElementById('new-round').addEventListener('click', (event) => {
+    addNewRound();
 });
 
-document.getElementById('new-game').addEventListener('click', (event) => newGame());
+// document.getElementById('new-game').addEventListener('click', (event) => newGame());
 
 // testing inits
-// let eventFire = function (el, etype){
-//     if (el.fireEvent) {
-//         el.fireEvent('on' + etype);
-//     } else {
-//         let evObj = document.createEvent('Events');
-//         evObj.initEvent(etype, true, false);
-//         el.dispatchEvent(evObj);
-//     }
-// }
-// let testPlayers = function() {
-//     let nameInput = document.getElementById('inpt-player-name');
-//     let addPlayer = document.getElementById('add-player');
-//     nameInput.value = 'Michael';
-//     eventFire(addPlayer, 'click');
-//     nameInput.value = 'Hanna';
-//     eventFire(addPlayer, 'click');
-// }();
-//
-// let initRounds = function(number) {
-//     for (let i = 0; i < number; i++) {
-//         eventFire(document.getElementById('new-round'), 'click')
-//     }
-// }(2)
+let eventFire = function (el, etype){
+    if (el.fireEvent) {
+        el.fireEvent('on' + etype);
+    } else {
+        let evObj = document.createEvent('Events');
+        evObj.initEvent(etype, true, false);
+        el.dispatchEvent(evObj);
+    }
+}
+let addPlayerViaSocket = function(playerName) {
+    let nameInput = document.getElementById('inpt-player-name');
+    let addPlayerBtn = document.getElementById('add-player');
+    nameInput.value = playerName;
+    addPlayerBtn.click();
+};
+
+let initRounds = function(number) {
+    for (let i = 0; i < number; i++) {
+        eventFire(document.getElementById('new-round'), 'click')
+    }
+};

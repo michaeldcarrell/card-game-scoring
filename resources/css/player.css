@@ -1,0 +1,22 @@
+.row {
+    margin-top: 15px;
+}
+
+.btn {
+    margin-top: 10px;
+}
+
+#loading-msg {
+    margin-right: 50px;
+}
+
+#connection-container {
+    height: calc(100vh - 15px);
+}
+
+#loading-row {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

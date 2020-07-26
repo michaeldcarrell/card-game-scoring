@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player Card</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    <link rel="icon" href="resources/img/CELogo.svg">
+    <link rel="bookmark" href="resources/img/CELogo.svg">
+    <link rel="stylesheet" href="resources/css/player.css">
+</head>
+<body>
+<div class="container" id="connection-container">
+    <div class="row" id="loading-row">
+        <h1 id="loading-msg">Connecting to Room....</h1>
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</div>
+<div class="container" id="scoring-container" style="display: none;">
+    <form>
+        <div class="row">
+            <div class="col">
+                <label for="round-select">Round Number</label>
+                <select class="selectpicker form-control" id="round-select">
+                    <option value="1">Round 1</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="round-score">Round Score</label>
+                <input type="number" id="round-score" placeholder="Enter Round Score" class="form-control" pattern="\d*">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" id="submit-score" class="btn btn-primary" style="width: 100%;">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="resources/js/player.js"></script>
+</html>
