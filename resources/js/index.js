@@ -4,23 +4,12 @@ let roomCode = document.getElementById('room-code');
     newRoomBtn = document.getElementById('create-new-card');
 
 joinBtn.addEventListener('click', function() {
-    Cookies.set('ce-room-code', roomCode.value);
-    Cookies.set('ce-player-name', playerName.value);
+    Cookies.set('ce-room-code', roomCode.value.toLowerCase().trim());
+    Cookies.set('ce-player-name', playerName.value.trim());
     document.location.href = '/player'
 });
 
 newRoomBtn.addEventListener('click', function () {
-    Cookies.set('ce-room-manage-code', generateRoomCode());
     document.location.href = '/scoreboard';
 });
-
-let generateRoomCode = function() {
-    let result = '';
-    let characters = 'abcdefghijklmnopqrstuvwxyz';
-    let idLen = 6;
-    for (let i = 0; i < idLen; i++) {
-        result += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return result
-}
 

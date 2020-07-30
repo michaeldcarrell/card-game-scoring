@@ -1,3 +1,4 @@
+// let socket = io.connect('http://localhost:8080');
 let socket = io("https://ce-scoring.herokuapp.com/");
 
 let roomCode = Cookies.get('ce-room-code');
@@ -14,8 +15,6 @@ socket.emit('new-player', {
 socket.on('player-joined', function(data) {
     if (data.roomCode === roomCode) {
         if (playerName === data.playerName) {
-            document.getElementById('connection-container').style.display = 'none';
-            document.getElementById('scoring-container').style.display = 'block';
             if (data.scores[data.playerNumber]) {
                 scores = data.scores[data.playerNumber].score;
             } else {
@@ -32,6 +31,15 @@ socket.on('player-joined', function(data) {
             console.log(data.roomCode, roomCode);
         }
     }
+});
+
+socket.on('connect-to-room', function() {
+    document.getElementById('connection-container').style.display = 'none';
+    document.getElementById('scoring-container').style.display = 'block';
+});
+
+socket.on('cannot-connect-to-room', function() {
+    console.log('No Such Room');
 });
 
 socket.on('new-round', function(data) {

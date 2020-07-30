@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="174de94e-cc4a-4b10-b99e-2e8be0b45989" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/player.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/css/player.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/js/player.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scoreboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/css/scoreboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/img/CE-Logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/score-card.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/scoreboard.js" afterDir="false" />
-    </list>
+    <list default="true" id="174de94e-cc4a-4b10-b99e-2e8be0b45989" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -41,6 +30,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -67,7 +57,7 @@
       <workItem from="1590240392306" duration="23000" />
       <workItem from="1590681280540" duration="86000" />
       <workItem from="1595279988183" duration="2288000" />
-      <workItem from="1595768633732" duration="504000" />
+      <workItem from="1595768633732" duration="1166000" />
     </task>
     <servers />
   </component>

@@ -1,8 +1,37 @@
 // let socket = io.connect('http://localhost:8080');
 let socket = io("https://ce-scoring.herokuapp.com/");
 
-let roomCode = Cookies.get('ce-room-manage-code');
-document.getElementById('room-code').innerHTML = 'Room Code: ' + roomCode;
+let generateRoomCode = function() {
+    let result = '';
+    let characters = 'abcdefghijklmnopqrstuvwxyz';
+    let idLen = 6;
+    for (let i = 0; i < idLen; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result
+}
+
+
+
+let roomConnect = function() {
+    let genereatedRoomCode = generateRoomCode();
+    Cookies.set('ce-room-manage-code', genereatedRoomCode);
+    console.log("Room Code:", genereatedRoomCode);
+
+    socket.emit('new-room', {
+        roomCode: genereatedRoomCode
+    })
+
+    document.getElementById('room-code').innerHTML = 'Room Code: ' + genereatedRoomCode;
+}
+
+roomConnect();
+
+socket.on('occupied', function() {
+    genereatedRoomCode = generateRoomCode()
+    Cookies.set('ce-room-manage-code', genereatedRoomCode);
+    roomConnect();
+});
 
 let playerNames = [];
 let playerNameNumbers = {};
