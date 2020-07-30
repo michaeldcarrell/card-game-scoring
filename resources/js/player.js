@@ -5,6 +5,11 @@ let roomCode = Cookies.get('ce-room-code');
 let playerName = Cookies.get('ce-player-name');
 let playerNumber;
 let scores;
+let connection = {
+    connected: true,
+    roomExists: false,
+    at: new Date()
+};
 
 
 socket.emit('new-player', {
@@ -23,23 +28,52 @@ socket.on('player-joined', function(data) {
             addRounds(data.roundNumber);
             playerNumber = data.playerNumber;
             if (data.result) {
-                console.log('Player Added to room', data);
+                // console.log('Player Added to room', data);
             } else {
-                console.log('Room refused player', data);
+                // console.log('Room refused player', data);
             }
         } else {
-            console.log(data.roomCode, roomCode);
+            // console.log(data.roomCode, roomCode);
         }
     }
 });
 
+setInterval(function() {
+    socket.emit('client-poll');
+}, 2000);
+
+setInterval(function() {
+    let currentTime = new Date();
+    let lastSuccessfulPoll = connection.at;
+    if (currentTime - lastSuccessfulPoll > 5000 && connection.roomExists === true) {
+        connection .connected = false;
+        // console.log(new Date(), 'Disconnected')
+        document.getElementById('connection-container').style.display = 'none';
+        document.getElementById('scoring-container').style.display = 'none';
+        document.getElementById('re-connection-container').style.display = 'block';
+    }
+}, 5000);
+
+socket.on('client-poll', function() {
+    // console.log(new Date(), 'Connected')
+    connection.connected = true;
+    connection.at = new Date();
+    if (connection.roomExists === true) {
+        document.getElementById('scoring-container').style.display = 'block';
+        document.getElementById('re-connection-container').style.display = 'none';
+    }
+});
+
 socket.on('connect-to-room', function() {
+    connection.roomExists = true;
     document.getElementById('connection-container').style.display = 'none';
     document.getElementById('scoring-container').style.display = 'block';
 });
 
 socket.on('cannot-connect-to-room', function() {
-    console.log('No Such Room');
+    document.getElementById('connection-container').style.display = 'none';
+    document.getElementById('no-room-container').style.display = 'block';
+    document.getElementById('no-room-room-code').innerText = roomCode ?? '';
 });
 
 socket.on('new-round', function(data) {
@@ -52,7 +86,7 @@ socket.on('new-round', function(data) {
 socket.on('scoreboard-update', function(data) {
     if (data.roomCode === roomCode) {
         if (data.scores[playerNumber]) {
-            console.log(data.scores);
+            // console.log(data.scores);
             scores = data.scores[playerNumber].score;
         }
     }
@@ -61,7 +95,7 @@ socket.on('scoreboard-update', function(data) {
 let addRounds = function(currentRoundNum) {
     let selecter = document.getElementById('round-select');
     let options = selecter.options;
-    for (let i = 0; i < options.length; i++) {
+    for (let i = options.length - 1; i >= 0; i--) {
         options[i].remove();
     }
 
@@ -96,10 +130,14 @@ document.getElementById('submit-score').addEventListener('click', function () {
     }
 });
 
+document.getElementById('back-to-lobby-btn').addEventListener('click', function() {
+    document.location.href = '/';
+})
+
 document.getElementById('round-select').addEventListener('change', function() {
     let scoreInpt = document.getElementById('round-score');
     let currentRound = this.value;
-    console.log('Current Round', currentRound);
+    // console.log('Current Round', currentRound);
     if (scores[currentRound - 1]) {
         scoreInpt.value = scores[currentRound - 1];
     } else {
@@ -107,4 +145,4 @@ document.getElementById('round-select').addEventListener('change', function() {
     }
 })
 
-console.log(Cookies.get('ce-player-name'), Cookies.get('ce-room-code'));
+// console.log(Cookies.get('ce-player-name'), Cookies.get('ce-room-code'));

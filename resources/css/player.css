@@ -6,15 +6,15 @@
     margin-top: 10px;
 }
 
-#loading-msg {
+#loading-msg, #re-loading-msg {
     margin-right: 50px;
 }
 
-#connection-container {
+#connection-container, #re-connection-container {
     height: calc(100vh - 15px);
 }
 
-#loading-row {
+#loading-row, #re-loading-row {
     position: absolute;
     top: 50%;
     left: 50%;

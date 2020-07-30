@@ -1,6 +1,8 @@
 // let socket = io.connect('http://localhost:8080');
 let socket = io("https://ce-scoring.herokuapp.com/");
 
+let roomCode = Cookies.get('ce-room-manage-code');
+
 let generateRoomCode = function() {
     let result = '';
     let characters = 'abcdefghijklmnopqrstuvwxyz';
@@ -16,7 +18,7 @@ let generateRoomCode = function() {
 let roomConnect = function() {
     let genereatedRoomCode = generateRoomCode();
     Cookies.set('ce-room-manage-code', genereatedRoomCode);
-    console.log("Room Code:", genereatedRoomCode);
+    // console.log("Room Code:", genereatedRoomCode);
 
     socket.emit('new-room', {
         roomCode: genereatedRoomCode
@@ -40,10 +42,15 @@ let playerRoundScores = {};
 let maxRounds = 0;
 
 socket.on('score', function(data){
-    console.log(data);
+    // console.log(data);
 });
 
+let refreshRoomCode = function() {
+    roomCode = Cookies.get('ce-room-manage-code');
+}
+
 socket.on('new-player', function(data) {
+    refreshRoomCode();
     if (data.roomCode === roomCode) {
         //create function which finds players with the same name
         let playerNotExists = !playerNames.includes(data.playerName);
@@ -51,8 +58,8 @@ socket.on('new-player', function(data) {
             addPlayerViaSocket(data.playerName);
             playerNames.push(data.playerName);
         }
-        console.log(playerNames);
-        console.log(playerNameNumbers);
+        // console.log(playerNames);
+        // console.log(playerNameNumbers);
         socket.emit('player-joined', {
             roomCode: roomCode,
             playerName: data.playerName,
@@ -61,12 +68,12 @@ socket.on('new-player', function(data) {
             scores: playerRoundScores,
             result: playerNotExists
         })
-        console.log(data.playerName, data.roomCode);
+        // console.log(data.playerName, data.roomCode);
     }
 })
 
 socket.on('player-submitted-score', function(data){
-    console.log(data);
+    // console.log(data);
     document.getElementById('inpt-score-player-' + data.playerNumber + '-round-' + data.roundNumber).value = data.roundScore;
     totalPlayer(data.playerNumber);
     if (checkForNextRound(maxRound(), maxPlayer())) {
@@ -75,7 +82,7 @@ socket.on('player-submitted-score', function(data){
 });
 
 let totalPlayer = function(playerID) {
-    console.log('Total Player', playerID)
+    // console.log('Total Player', playerID)
     let rowCollection = document.getElementsByClassName('scores-player-' + playerID);
     let playerTotalScore = 0;
     let roundScores = {};
@@ -112,6 +119,7 @@ let getAdvanceToNextScore = () => {
 };
 
 let addRound = (columnPosition, playersNumber, row, numberOfPlayers) => {
+    refreshRoomCode();
     let roundInput = row.insertCell(columnPosition);
     roundInput.innerHTML = "<td class=\"round\"><input type=\"number\" " +
         "class=\"round-inpt form-unit form-control round-" + columnPosition +" scores-player-" + playersNumber + "\" " +
