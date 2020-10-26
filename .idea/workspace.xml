@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="174de94e-cc4a-4b10-b99e-2e8be0b45989" name="Default Changelist" comment="" />
+    <list default="true" id="174de94e-cc4a-4b10-b99e-2e8be0b45989" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/web.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/web.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/player.html" beforeDir="false" afterPath="$PROJECT_DIR$/player.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/css/player.css" beforeDir="false" afterPath="$PROJECT_DIR$/resources/css/player.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/player.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/scoreboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/scoreboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../scoring-socket/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../scoring-socket/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,7 +34,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/js" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../binventory/node" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -58,6 +69,7 @@
       <workItem from="1590681280540" duration="86000" />
       <workItem from="1595279988183" duration="2288000" />
       <workItem from="1595768633732" duration="1166000" />
+      <workItem from="1598961104137" duration="5534000" />
     </task>
     <servers />
   </component>
@@ -69,5 +81,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1170" y="270" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1595768726556" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1599179686584">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1599179686584" />
   </component>
 </project>

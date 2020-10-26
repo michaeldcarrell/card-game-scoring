@@ -20,3 +20,12 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+#plus,
+#minus {
+    margin: auto;
+}
+
+#plus-minus-col {
+    text-align: center;
+}

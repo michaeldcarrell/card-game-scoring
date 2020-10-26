@@ -109,24 +109,28 @@ let addRounds = function(currentRoundNum) {
 
 document.getElementById('submit-score').addEventListener('click', function () {
     let roundSel = document.getElementById('round-select');
-    let scoreInpt = document.getElementById('round-score');
+    let scoreInput = document.getElementById('round-score');
+    let score = parseInt(scoreInpt.value)
+    if (document.getElementById('negative').style.display !== 'none') {
+        score = -1 * score;
+    }
     let currentRound = roundSel.value;
     socket.emit('player-submitted-score', {
         playerName: playerName,
         playerNumber: playerNumber,
         roomCode: roomCode,
         roundNumber: parseInt(currentRound),
-        roundScore: parseInt(scoreInpt.value)
+        roundScore: score
     })
     roundSel.value = parseInt(currentRound) + 1;
     if (scores) {
         if (scores[parseInt(currentRound)]) {
-            scoreInpt.value = scores[parseInt(currentRound)];
+            setScore(scores[parseInt(currentRound)]);
         } else {
-            scoreInpt.value = 0;
+            setScore(0);
         }
     } else {
-        scoreInpt.value = 0;
+        setScore(0);
     }
 });
 
@@ -139,10 +143,39 @@ document.getElementById('round-select').addEventListener('change', function() {
     let currentRound = this.value;
     // console.log('Current Round', currentRound);
     if (scores[currentRound - 1]) {
-        scoreInpt.value = scores[currentRound - 1];
+        setScore(scores[currentRound - 1]);
     } else {
-        scoreInpt.value = 0
+        setScore(0);
     }
+});
+
+let resetPosNeg = function(direction) {
+    if (direction === 'pos') {
+        document.getElementById('positive').style.display = 'block';
+        document.getElementById('negative').style.display = 'none';
+    } else {
+        document.getElementById('positive').style.display = 'none';
+        document.getElementById('negative').style.display = 'block';
+    }
+}
+
+let setScore = function(score) {
+    let scoreInput = document.getElementById('round-score');
+    if (score >= 0){
+        resetPosNeg('pos');
+        scoreInput.value = score;
+    } else {
+        resetPosNeg('neg');
+        scoreInput.value = -1 * score
+    }
+}
+
+document.getElementById('positive').addEventListener('click', function() {
+    this.style.display = 'none';
+    document.getElementById('negative').style.display = 'block';
 })
 
-// console.log(Cookies.get('ce-player-name'), Cookies.get('ce-room-code'));
+document.getElementById('negative').addEventListener('click', function() {
+    this.style.display = 'none';
+    document.getElementById('positive').style.display = 'block';
+})

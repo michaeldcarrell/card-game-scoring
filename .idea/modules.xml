@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../scoring-socket/.idea/scoring-socket.iml" filepath="$PROJECT_DIR$/../../scoring-socket/.idea/scoring-socket.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/web.iml" filepath="$PROJECT_DIR$/.idea/web.iml" />
     </modules>
   </component>
