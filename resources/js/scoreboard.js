@@ -1,5 +1,5 @@
-let socket = io.connect('http://localhost:8080');
-// let socket = io("https://ce-scoring.herokuapp.com/");
+// let socket = io.connect('http://localhost:8080');
+let socket = io("https://ce-scoring.herokuapp.com/");
 
 let roomCode = Cookies.get('ce-room-manage-code');
 
