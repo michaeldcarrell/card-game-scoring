@@ -110,7 +110,7 @@ let addRounds = function(currentRoundNum) {
 document.getElementById('submit-score').addEventListener('click', function () {
     let roundSel = document.getElementById('round-select');
     let scoreInput = document.getElementById('round-score');
-    let score = parseInt(scoreInpt.value)
+    let score = parseInt(scoreInput.value)
     if (document.getElementById('negative').style.display !== 'none') {
         score = -1 * score;
     }
